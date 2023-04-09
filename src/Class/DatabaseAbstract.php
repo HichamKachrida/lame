@@ -10,7 +10,7 @@ class DatabaseAbstract
 
     private function __construct(){
         try {
-            $this->connection = New PDO(DB_DSN, DB_USER, DB_PASSWORD);
+            $this->connection = New \PDO(DB_DSN, DB_USER, DB_PASSWORD);
         }
         catch (PDOException $e){
             echo $e->getMessage();

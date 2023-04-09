@@ -1,26 +1,17 @@
 <?php
 
-namespace App\Kernel;
-
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../config.php';
-require_once __DIR__ . '/../src/Class/DatabaseAbstract.php';
 
-$loader = new \Twig\Loader\FilesystemLoader(__DIR__.'/../templates');
+$router = new \Bramus\Router\Router();
 
-$twig = new \Twig\Environment($loader, [
-    'cache' => __DIR__.'/../var/cache',
-]);
+$router->set404(function() {
+    echo "Error 404!!!";
+});
 
-// Connection à la base de donnée
-$database = DatabaseAbstract::getInstance();
-$connection = $database->getConnection();
+$router->get('/', '\App\Controller\IndexController@index');
+$router->get('/posts/(\d+)/(\w+)/', '\App\Controller\IndexController@index');
 
-$template = $twig->load('index/index.twig.html');
-
-echo $template->render([
-    'title' => 'Lame app',
-    'h1' => 'Welcome to the Lame App'
-]);
+$router->run();
 
 ?>

@@ -7,7 +7,7 @@ class DatabaseAbstract
     public static $instance = null;
     private $connection;
 
-    private function __construct($localhost, $username, $password, $database){
+    private function __construct(){
         try {
             $this->connection = New PDO(DB_DSN, DB_USER, DB_PASSWORD);
         }
@@ -16,9 +16,9 @@ class DatabaseAbstract
         }
     }
 
-    public static function getInstance($localhost, $username, $password, $database){
+    public static function getInstance(){
         if(self::$instance == null){
-            self::$instance = new DatabaseAbstract($localhost, $username, $password, $database);
+            self::$instance = new DatabaseAbstract();
         }
         return self::$instance;
     }

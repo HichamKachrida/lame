@@ -11,9 +11,18 @@ $twig = new \Twig\Environment($loader, [
 ]);
 
 // Connection à la base de donnée
-$database = DatabaseAbstract::getInstance('localhost', 'root', '', 'lame');
+$database = DatabaseAbstract::getInstance();
 $connection = $database->getConnection();
 
+// Ecriture de la requête
+$sqlQuery = 'INSERT INTO test(title, recipe) VALUES (?,?)';
+
+$ins = $connection->prepare($sqlQuery);
+
+$ins->execute([
+    'title112',
+    'recipe'
+]);
 
 $template = $twig->load('index/index.twig.html');
 
